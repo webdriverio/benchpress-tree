@@ -9,7 +9,12 @@ Full documentation found at https://github.com/angular/angular/blob/master/modul
 
 ```
 $ npm install .
-$(npm bin)/wdio
+
+# using wdio testrunner
+$ (npm bin)/wdio
+
+# in standalone mode
+$ node standalone.js
 ```
 
 ## See The Code
