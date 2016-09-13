@@ -1,9 +1,7 @@
 var httpServer = require('http-server');
 
 exports.config = {
-  directConnect: true,
-
-  capabilities: {
+  capabilities: [{
     browserName: 'chrome',
     chromeOptions: {
       //Important for benchpress to get timeline data from the browser
@@ -15,30 +13,21 @@ exports.config = {
     loggingPrefs: {
       performance: 'ALL'
     }
-  },
+  }],
 
   specs: ['tree_benchmark.spec.js'],
-  framework: 'jasmine2',
+  framework: 'mocha',
 
-  onPrepare: function() {
-    beforeEach(function() {
-      browser.ignoreSynchronization = false;
-    });
-  },
-
-  // restart browser between tests
-  // so that the browser does not keep
-  // optimizations
-  restartBrowserBetweenTests: true,
-
-  beforeLaunch: function () {
+  onPrepare: function () {
     httpServer.createServer({
       showDir: false
     }).listen('8080', 'localhost');
   },
 
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000
+  mochaOpts: {
+    timeout: 30000
   },
+
+  // start selenium standalone server before start
+  services: ['selenium-standalone']
 };
